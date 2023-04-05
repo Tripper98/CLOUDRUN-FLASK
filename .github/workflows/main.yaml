@@ -24,9 +24,9 @@ jobs:
       #     version: "290.0.1"
       #     service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
       #     project_id: ${{ secrets.GCP_PROJECT_ID }}
-      uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: '${{ secrets.GCP_SA_KEY_JSON }}'
+      - uses: 'google-github-actions/auth@v1'
+          with:
+            credentials_json: '${{ secrets.GCP_SA_KEY_JSON }}'
 
       # Build and push image to Google Container Registry
       - name: Build
