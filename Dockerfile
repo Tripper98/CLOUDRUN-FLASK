@@ -1,10 +1,11 @@
 FROM python:3.9
 
-WORKDIR  /CLOUD-RUN-FLASK
+WORKDIR  /
 
-COPY . /CLOUD-RUN-FLASK/*
+COPY . ./
 
-RUN pip install requirement.txt
+RUN pip install --no-cache-dir --upgrade pip \
+  && pip install --no-cache-dir -r requirements.txt
 
 CMD ["python", "main.py"]
 
