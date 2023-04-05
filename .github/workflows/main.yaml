@@ -5,6 +5,7 @@ on:
     branches:
       - main
 
+secrets:
 env:
   PROJECT_ID: '${{ secrets.GCP_PROJECT_ID }}'
   RUN_REGION: '${{ secrets.RUN_REGION}}'
