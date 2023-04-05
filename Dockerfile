@@ -1,4 +1,6 @@
-FROM python:3.9
+FROM python:3.9-slim
+
+ENV CLOUDSDK_PYTHON=/usr/bin/python
 
 WORKDIR  /
 
