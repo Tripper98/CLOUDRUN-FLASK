@@ -18,22 +18,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # # Setup gcloud CLI
-      - uses: google-github-actions/setup-gcloud@v1
+      - id: 'auth'
+      - uses: google-github-actions/auth@v1
         with:
-          # version: "290.0.1"
-          service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-      # - uses: google-github-actions/auth@v1
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      - name: 'Set up Cloud SDK'
+      - uses: google-github-actions/setup-gcloud@v1
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+
+      # # Setup gcloud CLI
+      # - uses: google-github-actions/setup-gcloud@v1
       #   with:
-      #     credentials_json: ${{ secrets.GCP_SA_KEY_JSON }}
+      #     # version: "290.0.1"
+      #     service_account_key: ${{ secrets.GCP_SA_KEY_JSON }}
+      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
+      # # - uses: google-github-actions/auth@v1
+      # #   with:
+      # #     credentials_json: ${{ secrets.GCP_SA_KEY_JSON }}
 
-      - name: Define the project
-        run: gcloud config set project $PROJECT_ID
-        
-      # Build and push image to Google Container Registry
-      - name: Build
-        run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA
+      # - name: Define the project
+      #   run: gcloud config set project $PROJECT_ID
 
-      - name: Deploy
-        run: gcloud run deploy $APP_ID --image gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --allow-unauthenticated
+      # # Build and push image to Google Container Registry
+      # - name: Build
+      #   run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA
+
+      # - name: Deploy
+      #   run: gcloud run deploy $APP_ID --image gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --allow-unauthenticated
