@@ -26,8 +26,8 @@ jobs:
       - name: 'Set up Cloud SDK'
         uses: google-github-actions/setup-gcloud@v1
 
-      - name: 'Use gcloud CLI'
-        run: 'gcloud info'
+      # - name: 'Use gcloud CLI'
+      #   run: 'gcloud info'
 
       # # Setup gcloud CLI
       # - uses: google-github-actions/setup-gcloud@v1
@@ -43,8 +43,8 @@ jobs:
       #   run: gcloud config set project $PROJECT_ID
 
       # # Build and push image to Google Container Registry
-      # - name: Build
-      #   run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA
+      - name: Build
+        run: gcloud builds submit --tag gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA
 
-      # - name: Deploy
-      #   run: gcloud run deploy $APP_ID --image gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --allow-unauthenticated
+      - name: Deploy
+        run: gcloud run deploy $APP_ID --image gcr.io/$PROJECT_ID/$APP_ID:$GITHUB_SHA --platform managed --region $RUN_REGION --allow-unauthenticated
